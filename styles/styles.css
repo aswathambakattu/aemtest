@@ -418,7 +418,7 @@ body.article-page main blockquote p {
   line-height: inherit;
 }
 
-body.article-page main .default-content-wrapper > p:first-child {
+body.article-page main .article-eyebrow {
   margin: 0 0 12px;
   color: #1f7168;
   font-size: var(--body-font-size-xs);

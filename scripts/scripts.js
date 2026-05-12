@@ -6,6 +6,7 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
+  getMetadata,
   waitForFirstImage,
   loadSection,
   loadSections,
@@ -76,11 +77,27 @@ function buildAutoBlocks(main) {
 
 /**
  * Adds page-level article styling for editorial content pages.
+ * @param {Element} main The main container element
  */
-function decorateArticlePage() {
-  const { pathname } = window.location;
-  if (pathname.includes('article')) {
-    document.body.classList.add('article-page');
+function decorateArticlePage(main) {
+  if (getMetadata('template').toLowerCase() !== 'article') return;
+
+  document.body.classList.add('article-page');
+
+  if (!main.querySelector('h1')) {
+    const paragraphs = [...main.querySelectorAll('p')];
+    const eyebrow = paragraphs.find((p) => p.textContent.trim().toLowerCase() === 'article');
+    const title = eyebrow ? eyebrow.nextElementSibling : paragraphs[0];
+
+    if (eyebrow) {
+      eyebrow.classList.add('article-eyebrow');
+    }
+
+    if (title && title.tagName === 'P') {
+      const h1 = document.createElement('h1');
+      h1.innerHTML = title.innerHTML;
+      title.replaceWith(h1);
+    }
   }
 }
 
@@ -130,7 +147,7 @@ function decorateButtons(main) {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateIcons(main);
-  decorateArticlePage();
+  decorateArticlePage(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
