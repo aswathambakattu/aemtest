@@ -75,6 +75,16 @@ function buildAutoBlocks(main) {
 }
 
 /**
+ * Adds page-level article styling for editorial content pages.
+ */
+function decorateArticlePage() {
+  const { pathname } = window.location;
+  if (pathname.includes('article')) {
+    document.body.classList.add('article-page');
+  }
+}
+
+/**
  * Decorates formatted links to style them as buttons.
  * @param {HTMLElement} main The main container element
  */
@@ -120,6 +130,7 @@ function decorateButtons(main) {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateIcons(main);
+  decorateArticlePage();
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
