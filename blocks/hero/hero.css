@@ -5,22 +5,71 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
-}
-
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  display: grid;
+  min-height: 360px;
+  overflow: hidden;
+  background-color: var(--dark-color);
   color: var(--background-color);
 }
 
+.hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgb(0 0 0 / 65%), rgb(0 0 0 / 20%));
+  content: "";
+}
+
+.hero-content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  min-height: 360px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  width: 100%;
+}
+
+.hero h1,
+.hero h2,
+.hero h3 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--background-color);
+}
+
+.hero p {
+  max-width: 640px;
+  margin: 16px 0 0;
+  font-size: var(--body-font-size-m);
+}
+
+.hero .button-wrapper {
+  margin-top: 24px;
+}
+
+.hero .button.primary {
+  border-color: var(--background-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.hero .button.primary:hover,
+.hero .button.primary:focus-visible {
+  border-color: var(--light-color);
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.hero-media,
 .hero picture {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
-  object-fit: cover;
   box-sizing: border-box;
 }
 
@@ -31,7 +80,14 @@
 }
 
 @media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+  .hero-content {
+    min-height: 440px;
+    padding: 80px 32px;
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero h3 {
+    max-width: 840px;
   }
 }
